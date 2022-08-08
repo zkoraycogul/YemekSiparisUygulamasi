@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_nav"
+    app:startDestination="@id/yemekleriListelemeFragment">
+
+    <fragment
+        android:id="@+id/yemekleriListelemeFragment"
+        android:name="com.example.proje.ui.fragment.YemekleriListelemeFragment"
+        android:label="fragment_yemekleri_listeleme"
+        tools:layout="@layout/fragment_yemekleri_listeleme" >
+        <action
+            android:id="@+id/detayGecis"
+            app:destination="@id/yemekDetayFragment" />
+        <action
+            android:id="@+id/action_yemekleriListelemeFragment_to_sepetGoruntulemeFragment2"
+            app:destination="@id/sepetGoruntulemeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/yemekDetayFragment"
+        android:name="com.example.proje.ui.fragment.YemekDetayFragment"
+        android:label="fragment_yemek_detay"
+        tools:layout="@layout/fragment_yemek_detay" >
+        <argument
+            android:name="yemek"
+            app:argType="com.example.proje.data.entity.Yemekler" />
+        <action
+            android:id="@+id/detaydanSepeteGecis"
+            app:destination="@id/sepetGoruntulemeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sepetGoruntulemeFragment"
+        android:name="com.example.proje.ui.fragment.SepetGoruntulemeFragment"
+        android:label="fragment_sepet_goruntuleme"
+        tools:layout="@layout/fragment_sepet_goruntuleme" />
+</navigation>
