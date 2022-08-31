@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_activity_nav"
-    app:startDestination="@id/yemekleriListelemeFragment">
+    app:startDestination="@id/animationFragment">
 
     <fragment
         android:id="@+id/yemekleriListelemeFragment"
@@ -13,9 +13,6 @@
         <action
             android:id="@+id/detayGecis"
             app:destination="@id/yemekDetayFragment" />
-        <action
-            android:id="@+id/action_yemekleriListelemeFragment_to_sepetGoruntulemeFragment2"
-            app:destination="@id/sepetGoruntulemeFragment" />
     </fragment>
     <fragment
         android:id="@+id/yemekDetayFragment"
@@ -25,13 +22,36 @@
         <argument
             android:name="yemek"
             app:argType="com.example.proje.data.entity.Yemekler" />
-        <action
-            android:id="@+id/detaydanSepeteGecis"
-            app:destination="@id/sepetGoruntulemeFragment" />
     </fragment>
     <fragment
         android:id="@+id/sepetGoruntulemeFragment"
         android:name="com.example.proje.ui.fragment.SepetGoruntulemeFragment"
         android:label="fragment_sepet_goruntuleme"
         tools:layout="@layout/fragment_sepet_goruntuleme" />
+    <fragment
+        android:id="@+id/animationFragment"
+        android:name="com.example.proje.ui.fragment.AnimationFragment"
+        android:label="fragment_animation"
+        tools:layout="@layout/fragment_animation" >
+        <action
+            android:id="@+id/anmToListe"
+            app:destination="@id/yemekleriListelemeFragment"
+            app:popUpTo="@id/animationFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/anmToReg"
+            app:destination="@id/registerFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.proje.ui.fragment.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/regToAnm"
+            app:destination="@id/animationFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

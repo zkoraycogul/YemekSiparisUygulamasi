@@ -1,30 +1,18 @@
 package com.example.proje.data.repo
 
-import android.content.Intent
-import android.view.View
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.Navigation
-import com.example.proje.MainActivity
-import com.example.proje.R
-import com.example.proje.data.entity.SepetYemekler
-import com.example.proje.data.entity.SepetYemeklerCevap
-import com.example.proje.data.entity.Yemekler
-import com.example.proje.data.entity.YemeklerCevap
+import com.example.proje.data.entity.*
 import com.example.proje.retrofit.YemeklerDao
-import com.example.proje.ui.fragment.SepetGoruntulemeFragment
-import com.example.proje.ui.fragment.YemekDetayFragment
-import com.example.proje.ui.viewmodel.SepetGoruntulemeViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.Serializable
+
 
 class YemeklerDaoRepository(var ymkdao:YemeklerDao) {
-    val liste = ArrayList<SepetYemekler>()
     var yemeklerListesi: MutableLiveData<List<SepetYemekler>>
     var yemek_liste: MutableLiveData<List<Yemekler>>
-    val yemekListesi = ArrayList<SepetYemekler>()
-
+    var bosListe = ArrayList<SepetYemekler>()
 
     init {
         yemeklerListesi = MutableLiveData()
@@ -32,39 +20,60 @@ class YemeklerDaoRepository(var ymkdao:YemeklerDao) {
     }
 
     fun yemekleriAl(): MutableLiveData<List<Yemekler>> {
-
         return yemek_liste
     }
 
-    fun tumYemekleriAl2() {
+    fun sepetYemekleriGetir(): MutableLiveData<List<SepetYemekler>> {
+        return yemeklerListesi
+    }
+
+    fun yemekAra(yemekAra:String){
+        Log.e("Aranılan yemek", yemekAra)
+    }
+
+    fun yemekKayit(yemek_adi: String,yemek_resim_adi: String,yemek_fiyat: Int,yemek_siparis_adet: Int,kullanici_adi: String) {
+        ymkdao.sepetYemekEkle(yemek_adi,yemek_resim_adi,yemek_fiyat,yemek_siparis_adet,kullanici_adi)
+            .enqueue(object:Callback<CRUDCevap>{
+                override fun onResponse(call: Call<CRUDCevap>?, response: Response<CRUDCevap>) {
+                }
+                override fun onFailure(call: Call<CRUDCevap>?, t: Throwable?) {}
+            })
+    }
+
+
+    fun tumYemekleriListele() {
         ymkdao.tumYemekler().enqueue(object : Callback<YemeklerCevap> {
             override fun onResponse(call: Call<YemeklerCevap>?, response: Response<YemeklerCevap>) {
                 val liste = response.body().yemekler
                 yemek_liste.value = liste
             }
-
             override fun onFailure(call: Call<YemeklerCevap>?, t: Throwable?) {}
         })
     }
 
-    fun yemekleriGetir(): MutableLiveData<List<SepetYemekler>> {
-        return yemeklerListesi
+    fun tumSepetYemekleriAl(kullanici_adi: String) {
+        ymkdao.sepetGoster(kullanici_adi).enqueue(object :Callback<SepetYemeklerCevap>{
+            override fun onResponse(call: Call<SepetYemeklerCevap>?, response: Response<SepetYemeklerCevap>) {
+                val yemekListesiSepet = response.body().sepet_yemekler
+                    yemeklerListesi.value = yemekListesiSepet
+                }
+            override fun onFailure(call: Call<SepetYemeklerCevap>?, t: Throwable?) {}
+        })
     }
 
-    fun yemekKayit(yemekId: Int,yemekAdi: String,yemekResim: String,yemekFiyat: String,yemekAdet: String) {
-        val y4 = SepetYemekler(yemekId,yemekAdi,yemekResim,yemekFiyat.toString().toDouble(),yemekAdet.toString().toInt())
-        liste.add(y4)
-        yemeklerListesi.value = liste
-        //ymkdao.sepetYemekEkle(yemekAdi,yemekResim,yemekFiyat.toInt(),yemekAdet.toInt())
+    fun yemekSil(yemekId: Int,kullanici_adi: String) {
+        ymkdao.sepettenSil(yemekId,kullanici_adi).enqueue(object : Callback<CRUDCevap>{
+            override fun onResponse(call: Call<CRUDCevap>?, response: Response<CRUDCevap>) {
+                val basari = response.body().success
+                val mesaj = response.body().message
+                Log.e("Sepet Yemek sil","$basari - $mesaj- $yemekId")
+                tumSepetYemekleriAl(kullanici_adi)
 
-    }
+            }
 
-    fun yemekSil(yemekId: Int,yemekAdi:String) {
-        liste.removeAt(0)
-        yemeklerListesi.value = liste
-    }
+            override fun onFailure(call: Call<CRUDCevap>?, t: Throwable?) {
 
-    fun tumYemekleriAl() {
-        yemeklerListesi.value = liste
+            }
+        })
     }
 }

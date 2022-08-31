@@ -19,8 +19,6 @@ class SepetAdapter(var mContext:Context,
                    var viewModel: SepetGoruntulemeViewModel
                    )
     : RecyclerView.Adapter<SepetAdapter.CardSepetTasarimTutucu>(){
-    var toplamFiyat : Double = 0.0
-    var k = YemekDetayFragment()
     inner class CardSepetTasarimTutucu(tasarim: CardTasarimSepetBinding) :RecyclerView.ViewHolder(tasarim.root) {
         var tasarim: CardTasarimSepetBinding
 
@@ -46,27 +44,19 @@ class SepetAdapter(var mContext:Context,
 
         val url = "http://kasimadalan.pe.hu/yemekler/resimler/${sepet.sepetYemekResimAdi}"
         Picasso.get().load(url).into(t.imageViewSepetResim)
-
-       // t.imageViewSepetResim.setImageResource(
-         //   mContext.resources.getIdentifier(sepet.sepetYemekResimAdi,"drawable",mContext.packageName))
-        toplamFiyat += sepet.sepetFiyat.toInt()*sepet.sepetSiparisAdet
-
-
         t.textViewSepetAd.text = sepet.sepetYemekAdi
-        t.textViewSepetFiyat.text = "${(sepet.sepetFiyat.toInt())*(sepet.sepetSiparisAdet)} ₺"
+        t.textViewSepetFiyat.text = "${(sepet.sepetFiyat)*(sepet.sepetSiparisAdet)} ₺"
         t.textViewAdet.text = "${sepet.sepetSiparisAdet}"
         t.imageView3.setOnClickListener{
             Snackbar.make(it,"${sepet.sepetYemekAdi} silinsin mi ?",Snackbar.LENGTH_LONG)
                 .setAction("EVET") {
-                   viewModel.sil(sepet.sepetYemekId,sepet.sepetYemekAdi)
+                   viewModel.sil(sepet.sepetYemekId,sepet.kullanici_adi)
                 }.show()
-
         }
     }
 
     override fun getItemCount(): Int {
         return sepetListesi.size
     }
-
 
 }

@@ -24,6 +24,7 @@ class YemekleriListelemeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         tasarim = DataBindingUtil.inflate(inflater,R.layout.fragment_yemekleri_listeleme,container, false)
         tasarim.listelemeFragment=this
+
         tasarim.yemekListelemeToolbarBaslik = "Yemekler"
 
         (activity as AppCompatActivity).setSupportActionBar(tasarim.toolbarYemekListe)
@@ -32,7 +33,6 @@ class YemekleriListelemeFragment : Fragment() {
             val adapter = YemeklerAdapter(requireContext(), it,viewModel )
             tasarim.yemeklerAdapter = adapter
         }
-
 
 
         return tasarim.root
@@ -53,8 +53,8 @@ class YemekleriListelemeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_sepetim -> {
-                view?.let { Navigation.findNavController(it).navigate(R.id.action_yemekleriListelemeFragment_to_sepetGoruntulemeFragment2) }
-            }
+                Navigation.findNavController(requireView()).navigate(R.id.sepetGoruntulemeFragment)
+          }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -37,20 +37,15 @@ class YemeklerAdapter(var mContext:Context,
         val t = holder.tasarim
         t.yemekNesnesi = yemek
 
+
         val url = "http://kasimadalan.pe.hu/yemekler/resimler/${yemek.yemekResimAdi}"
         Picasso.get().load(url).into(t.imageViewYemekResim)
-
-      //  t.imageViewYemekResim.setImageResource(
-         //   mContext.resources.getIdentifier(yemek.yemekResimAdi,"drawable",mContext.packageName))
         t.textViewYemekAd.text = yemek.yemekAdi
         t.textViewYemekFiyat.text = "${yemek.yemekFiyat} ₺"
-
         t.satirCard.setOnClickListener {
             val gecis= YemekleriListelemeFragmentDirections.detayGecis(yemek=yemek)
             Navigation.findNavController(it).navigate(gecis)
         }
-
-
     }
 
     override fun getItemCount(): Int {

@@ -32,19 +32,17 @@ class SepetGoruntulemeFragment : Fragment() {
 
         (activity as AppCompatActivity).setSupportActionBar(tasarim.toolbarSepet)
 
-//        val bundle:SepetGoruntulemeFragmentArgs by navArgs()
-//        val sepetYemek = bundle.sepet
-//        tasarim.yemekNesnesi=sepetYemek
-
-        viewModel.yemeklerListesi.observe(viewLifecycleOwner) {
-            val adapter = SepetAdapter(requireContext(),it,viewModel,)
+        viewModel.sepetYemeklerListesi.observe(viewLifecycleOwner) {
+            val adapter = SepetAdapter(requireContext(),it,viewModel)
             tasarim.sepetAdapter= adapter
+
+            var total = 0
+            it.forEach { gelenYemek ->
+                total += gelenYemek.sepetSiparisAdet * gelenYemek.sepetFiyat
+            }
+            tasarim.textViewSepetTutar.text = total.toString() + " ₺"
+
         }
-
-
-
-
-
         return tasarim.root
     }
 

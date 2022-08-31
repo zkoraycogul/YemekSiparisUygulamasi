@@ -11,8 +11,10 @@ import androidx.navigation.fragment.navArgs
 import com.example.proje.R
 import com.example.proje.databinding.FragmentYemekDetayBinding
 import com.example.proje.ui.adapter.SepetAdapter
-import com.example.proje.ui.fragment.YemekDetayFragmentDirections.Companion.detaydanSepeteGecis
+//import com.example.proje.ui.fragment.YemekDetayFragmentDirections.Companion.detaydanSepeteGecis
+import com.example.proje.ui.viewmodel.SepetGoruntulemeViewModel
 import com.example.proje.ui.viewmodel.YemekDetayViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,12 +34,8 @@ class YemekDetayFragment : Fragment() {
         val url = "http://kasimadalan.pe.hu/yemekler/resimler/${gelenYemek.yemekResimAdi}"
         Picasso.get().load(url).into(tasarim.imageViewDetayResim)
 
-        //tasarim.imageViewDetayResim.setImageResource(
-           // resources.getIdentifier(gelenYemek.yemekResimAdi,"drawable",requireContext().packageName))
-
         tasarim.textViewDetayAd.text = gelenYemek.yemekAdi
         tasarim.textViewDetayResim.text = gelenYemek.yemekResimAdi
-
         tasarim.textViewDetayFiyat.text = "${gelenYemek.yemekFiyat} ₺"
 
         tasarim.buttonArttR.setOnClickListener {
@@ -54,20 +52,25 @@ class YemekDetayFragment : Fragment() {
             }
         }
 
-        tasarim.buttonSepeteEkle.setOnClickListener {
-            sepeteEkle(gelenYemek.yemekId,gelenYemek.yemekAdi,gelenYemek.yemekResimAdi,gelenYemek.yemekFiyat.toString(),tasarim.textViewDetaySayi.text.toString())
-            sepetFiyat(tasarim.textViewDetaySayi.text.toString())
-        }
+            tasarim.buttonSepeteEkle.setOnClickListener {
+                if(tasarim.textViewDetaySayi.text.toString().toInt()>0){
+                    sepeteEkle(gelenYemek.yemekAdi,gelenYemek.yemekResimAdi,gelenYemek.yemekFiyat,tasarim.textViewDetaySayi.text.toString().toInt(),"Koray")
+                    tasarim.textViewDetaySayi.text = "0"
+
+                }else {
+                    Snackbar.make(it,"Yemek adedi en az 1 olabilir !",Snackbar.LENGTH_LONG).show()
+                }
+            }
+
+
+
         return tasarim.root
     }
 
 
 
-    fun sepeteEkle(yemekId:Int,yemekAd:String, yemekResim:String,yemekFiyat:String,yemekAdet:String) {
-        viewModel.kayit(yemekId,yemekAd,yemekResim,yemekFiyat,yemekAdet)
-    }
-    fun sepetFiyat(urunSayisi:String) : String{
-        return urunSayisi
+    fun sepeteEkle(yemekAd:String, yemekResim:String,yemekFiyat:Int,yemekAdet:Int,kullanici_adi:String) {
+        viewModel.kayit(yemekAd,yemekResim,yemekFiyat,yemekAdet,kullanici_adi)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +88,7 @@ class YemekDetayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_sepetim -> {
-                view?.let { Navigation.findNavController(it).navigate(R.id.detaydanSepeteGecis) }
+                Navigation.findNavController(requireView()).navigate(R.id.sepetGoruntulemeFragment)
             }
         }
         return super.onOptionsItemSelected(item)

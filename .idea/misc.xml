@@ -3,13 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/sepet.xml" value="0.1635" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19375" />
-        <entry key="app/src/main/res/layout/card_tasarim.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/card_tasarim_sepet.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/card_tasarim.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/card_tasarim_sepet.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_animation.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_sepet_goruntuleme.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_yemek_detay.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_yemekleri_listeleme.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/fragmentanm.xml" value="0.11296296296296296" />
         <entry key="app/src/main/res/menu/toolbar_menu.xml" value="0.19375" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>
   </component>

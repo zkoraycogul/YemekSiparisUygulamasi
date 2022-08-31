@@ -12,19 +12,19 @@ import javax.inject.Inject
 @HiltViewModel
 class SepetGoruntulemeViewModel @Inject constructor (var ymkrepo:YemeklerDaoRepository) : ViewModel() {
 
-    var yemeklerListesi = MutableLiveData<List<SepetYemekler>>()
+    var sepetYemeklerListesi = MutableLiveData<List<SepetYemekler>>()
 
     init {
-        yemekleriGoruntule()
-        yemeklerListesi = ymkrepo.yemekleriGetir()
+        yemekleriGoruntule(kullanici_adi = "Koray")
+        sepetYemeklerListesi = ymkrepo.sepetYemekleriGetir()
     }
 
-    fun sil(yemekId: Int, sepetYemekAdi: String) {
-        ymkrepo.yemekSil(yemekId,sepetYemekAdi)
+    fun sil(yemekId: Int, kullanici_adi: String) {
+        ymkrepo.yemekSil(yemekId,kullanici_adi)
     }
 
-    fun yemekleriGoruntule(){
-        ymkrepo.tumYemekleriAl()
+    fun yemekleriGoruntule(kullanici_adi:String){
+        ymkrepo.tumSepetYemekleriAl(kullanici_adi)
     }
 }
 
