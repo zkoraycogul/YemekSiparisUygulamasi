@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/syh"
+    app:layoutDescription="@xml/fragment_register_scene"
+    tools:context=".ui.fragment.RegisterFragment">
+
+
+    <EditText
+        android:id="@+id/editTextRegName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@color/byz"
+        app:layout_constraintStart_toStartOf="@+id/textViewKullaniciAdi"
+        app:layout_constraintTop_toBottomOf="@+id/textViewKullaniciAdi" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="register.json"
+        app:lottie_loop="false" />
+
+    <TextView
+        android:id="@+id/textViewKullaniciAdi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="90dp"
+        android:text="Kullanici Adi"
+        android:textAlignment="textStart"
+        android:textColor="@color/byz"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewSifre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="224dp"
+        android:text="Şifre"
+        android:textAlignment="textStart"
+        android:textColor="@color/byz"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextRegPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="numberPassword"
+        android:textColor="@color/byz"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/editTextRegName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSifre" />
+
+    <Button
+        android:id="@+id/buttonRegKayit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="128dp"
+        android:backgroundTint="@color/sr"
+        android:text="Kayıt Ol"
+        android:textColor="@color/byz"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
